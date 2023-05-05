@@ -1,1 +1,35 @@
 <p>selector-page works!</p>
+
+<form [formGroup]="miFormulario" (ngSubmit)="guardarDatos()" >
+  <div class="row">
+    <div class="col">
+      <label class="form-label">Continentes: </label>
+      <select class="form-control"
+        formControlName="region">
+        <option value="default" class="" [defaultSelected]="true"> Seleccione un continente </option>
+        <option value="1" class=""> América </option>
+
+      </select>
+    </div>
+    <div class="mt-3">
+      <button class="btn btn-primary">
+        Guardar Datos
+      </button>
+    </div>
+  </div>
+</form>
+
+
+<div class="mt-5">
+  <h3>Formulario</h3>
+  <pre>  {{ miFormulario.valid | json }}  </pre>
+
+
+  <h3>Formulario Datos </h3>
+  <pre>  {{ miFormulario.value | json }}  </pre>
+
+
+  <h3>Region valor</h3>
+  <pre>  {{ miFormulario.controls['region'].value | json }}  </pre>
+
+</div>

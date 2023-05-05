@@ -13,8 +13,8 @@ import { CountryRoutingModule } from './country/country-routing.module';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     CountryModule,
+    AppRoutingModule,
     CountryRoutingModule
   ],
   providers: [],
