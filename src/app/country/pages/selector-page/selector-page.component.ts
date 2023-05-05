@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ServicesCountry } from '../../services/services.service';
+import { InterfaceCountry } from '../../interfaces/regionCountry.interface';
 
 @Component({
   selector: 'app-selector-page',
@@ -8,11 +10,24 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class SelectorPageComponent implements OnInit{
 
-  constructor( private fb : FormBuilder){}
+  constructor(
+    private fb : FormBuilder,
+    private serviceCountry : ServicesCountry
+    ){}
   ngOnInit(): void {
-
+    this.regiones = this.serviceCountry.regiones;
+    this.miFormulario.get('region')?.valueChanges
+      .subscribe( region => {
+        this.serviceCountry.getPiasesPorRegio( region )
+          .subscribe( (paises) => {
+            this.paises = paises
+            console.log(this.paises)
+          })
+      })
   }
 
+  paises : InterfaceCountry[] = []
+  regiones : string [] = []
   miFormulario : FormGroup = this.fb.group({
     region : ['', Validators.required]
   })
@@ -20,7 +35,7 @@ export class SelectorPageComponent implements OnInit{
 
   //ngSubmit()
   guardarDatos() : void {
-    console.log("funciona")
+    console.log(this.miFormulario.value)
   }
 
 }

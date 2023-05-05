@@ -7,7 +7,10 @@
       <select class="form-control"
         formControlName="region">
         <option value="default" class="" [defaultSelected]="true"> Seleccione un continente </option>
-        <option value="1" class=""> América </option>
+        <option
+          *ngFor="let item of regiones"
+          [value]="item | lowercase"
+        >{{item}}</option>
 
       </select>
     </div>
