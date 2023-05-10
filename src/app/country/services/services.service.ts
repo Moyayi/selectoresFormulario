@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import {  HttpClient } from '@angular/common/http'
 import { InterfaceCountry } from '../interfaces/regionCountry.interface';
 @Injectable({
@@ -14,8 +14,11 @@ export class ServicesCountry {
   }
   constructor(private _http : HttpClient) { }
 
-  getPiasesPorRegio(region : string) : Observable<InterfaceCountry[]>{
-    const url = `${this._baseUrl}/region/${region}?fields=name&fields=cca3`
+  getPiasesPorRegion(region : string) : Observable<InterfaceCountry[]>{
+    const url = `${this._baseUrl}/region/${region}?fields=name&fields=cca3&fields=borders`
     return this._http.get<InterfaceCountry[]>( url )
+      .pipe( 
+        tap( response => console.log(response))
+      )
   }
 }

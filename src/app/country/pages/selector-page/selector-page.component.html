@@ -20,6 +20,27 @@
       </button>
     </div>
   </div>
+
+  <div class="row mt-5" *ngIf="miFormulario.get('region')?.value !== '' ">
+    <div class="col">
+      <label class="form-label">Paises: </label>
+      <select class="form-control"
+        formControlName="country"
+        >
+        <option value="default" class="" [defaultSelected]="true"> </option>
+        <option
+          *ngFor="let item of paises"
+          [value]="item.name.common | lowercase"
+        >{{item.name.common}}</option>
+
+      </select>
+    </div>
+    <div class="mt-3">
+      <button class="btn btn-primary">
+        Guardar Datos
+      </button>
+    </div>
+  </div>
 </form>
 
 

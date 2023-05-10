@@ -13,12 +13,25 @@ export class SelectorPageComponent implements OnInit{
   constructor(
     private fb : FormBuilder,
     private serviceCountry : ServicesCountry
-    ){}
+  ){}
+
   ngOnInit(): void {
+    this.onRegionChange();
+  }
+
+  paises : InterfaceCountry[] = []
+  regiones : string [] = []
+  miFormulario : FormGroup = this.fb.group({
+    region : ['', Validators.required],
+    country : ['', Validators.required]
+  })
+
+  onRegionChange() : void {
     this.regiones = this.serviceCountry.regiones;
     this.miFormulario.get('region')?.valueChanges
       .subscribe( region => {
-        this.serviceCountry.getPiasesPorRegio( region )
+        this.miFormulario.get('country')?.setValue("")
+        this.serviceCountry.getPiasesPorRegion( region )
           .subscribe( (paises) => {
             this.paises = paises
             console.log(this.paises)
@@ -26,13 +39,7 @@ export class SelectorPageComponent implements OnInit{
       })
   }
 
-  paises : InterfaceCountry[] = []
-  regiones : string [] = []
-  miFormulario : FormGroup = this.fb.group({
-    region : ['', Validators.required]
-  })
-
-
+  
   //ngSubmit()
   guardarDatos() : void {
     console.log(this.miFormulario.value)
